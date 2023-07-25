@@ -3,7 +3,7 @@
 Gradio app for exploring different model predictions.
 
 ####  Downloading the pretrained models
-To use the web app, you must first download the pretrained models from [here](https://data.caltech.edu/records/fbpq9-e3t81/files/pretrained_models.zip?download=1) and place them at `sinr/pretrained_models`. See `app.py` for the expected paths. 
+To use the web app, you must first download the pretrained models from [here](https://data.caltech.edu/records/dk5g7-rhq64/files/pretrained_models.zip?download=1) and place them at `sinr/pretrained_models`. See `app.py` for the expected paths. 
 
 ####  Starting the app
 Activate the SINR environment:
