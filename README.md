@@ -25,12 +25,21 @@ Estimating the geographical range of a species from sparse observations is a cha
  pip3 install -r requirements.txt
 ```
 
-4. Download the required data by following the instructions in `data/README.md`. 
-
 #### Data Download and Preparation
 Instructions for downloading the data in `data/README.md`.
 
-## Training and Evaluating Models
+## 🗺️ Generating Predictions
+To generate predictions for a model in the form of an image, run the following command: 
+```bash
+ python viz_map.py --taxa_id 130714
+```
+Here, `--taxa_id` is the id number for a species of interest from [iNaturalist](https://www.inaturalist.org/taxa/130714). If you want to generate predictions for a random species, add the `--rand_taxa` instead. 
+
+Note, before you run this command you need to first download the data as described in `data/README.md`. In addition, if you want to evaluate some of the pretrained models from the paper, you need to download those first and place them at `sinr/pretrained_models`. See `web_app/README.md` for more details.
+
+There is also an interactive browser-based demo available in `web_app`.
+
+## 🚅 Training and Evaluating Models
 
 To train and evaluate a model, run the following command:
 ```bash
@@ -61,3 +70,4 @@ If you find our work useful in your research please consider citing our paper.
 
 ## 📜 Disclaimer
 Extreme care should be taken before making any decisions based on the outputs of models presented here. Our goal in this work is to demonstrate the promise of large-scale representation learning for species range estimation, not to provide definitive range maps. Our models are trained on biased data and have not been calibrated or validated beyond the experiments illustrated in the paper. 
+

@@ -109,7 +109,7 @@ if __name__ == '__main__':
                
     parser = argparse.ArgumentParser(usage=info_str)
     parser.add_argument('--model_path', type=str, default='./pretrained_models/model_an_full_input_enc_sin_cos_hard_cap_num_per_class_1000.pt')
-    parser.add_argument('--taxa_id', type=int, default=3938, help='iNaturalist taxon ID.')
+    parser.add_argument('--taxa_id', type=int, default=130714, help='iNaturalist taxon ID.')
     parser.add_argument('--threshold', type=float, default=-1, help='Threshold the range map [0, 1].')
     parser.add_argument('--op_path', type=str, default='./images/', help='Location where the output image will be saved.')
     parser.add_argument('--rand_taxa', action='store_true', help='Select a random taxa.')

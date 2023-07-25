@@ -38,11 +38,11 @@ def generate_prediction(taxa_id, selected_model, settings, threshold):
         model_path = '../pretrained_models/model_an_full_input_enc_sin_cos_hard_cap_num_per_class_100.pt'
     elif selected_model == 'AN_FULL max 1000':
         model_path = '../pretrained_models/model_an_full_input_enc_sin_cos_hard_cap_num_per_class_1000.pt'
-    if selected_model == 'Distilled model':
+    elif selected_model == 'Distilled env model':
         model_path = '../pretrained_models/model_an_full_input_enc_sin_cos_distilled_from_env.pt'
 
     # load params
-    with open('paths.json', 'r') as f:
+    with open('../paths.json', 'r') as f:
         paths = json.load(f)
                 
     # configs
@@ -52,7 +52,7 @@ def generate_prediction(taxa_id, selected_model, settings, threshold):
     eval_params['taxa_id'] = int(taxa_id)
     eval_params['rand_taxa'] = 'Random taxa' in settings
     eval_params['set_max_cmap_to_1'] = False   
-    eval_params['disable_ocean_mask'] = 'Disable ocean mask' in settings
+    eval_params['disable_ocean_mask'] = 'Distilled env model' in settings
     eval_params['threshold'] = threshold if 'Threshold' in settings else -1.0
         
     # load model
@@ -87,7 +87,7 @@ def generate_prediction(taxa_id, selected_model, settings, threshold):
     print(f'Loading taxa: {eval_params["taxa_id"]}')
 
     # load ocean mask
-    mask = np.load(os.path.join(paths['masks'], 'ocean_mask.npy'))
+    mask = np.load(os.path.join('../', paths['masks'], 'ocean_mask.npy'))
     mask_inds = np.where(mask.reshape(-1) == 1)[0]
 
     # generate input features
@@ -150,8 +150,8 @@ with gr.Blocks(title="SINR Demo") as demo:
     gr.Markdown(top_text)
     
     with gr.Row():
-        selected_taxa = gr.Number(label="Taxa ID", value=84366)
-        select_model = gr.Dropdown(["AN_FULL max 10", "AN_FULL max 100", "AN_FULL max 1000", "Distilled model"],
+        selected_taxa = gr.Number(label="Taxa ID", value=130714)
+        select_model = gr.Dropdown(["AN_FULL max 10", "AN_FULL max 100", "AN_FULL max 1000", "Distilled env model"],
                                     value="AN_FULL max 1000", label="Model")
     with gr.Row():
         settings = gr.CheckboxGroup(["Random taxa", "Disable ocean mask", "Threshold"], label="Settings")
