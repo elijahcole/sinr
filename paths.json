@@ -1,0 +1,9 @@
+{
+    "masks": "data/masks/",
+    "env": "data/env/", 
+    "train": "data/train/", 
+    "geo_prior": "data/eval/geo_prior/",
+    "snt": "data/eval/snt/", 
+    "iucn": "data/eval/iucn/", 
+    "geo_feature": "data/eval/geo_feature/"
+} 
