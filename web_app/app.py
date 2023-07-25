@@ -52,7 +52,7 @@ def generate_prediction(taxa_id, selected_model, settings, threshold):
     eval_params['taxa_id'] = int(taxa_id)
     eval_params['rand_taxa'] = 'Random taxa' in settings
     eval_params['set_max_cmap_to_1'] = False   
-    eval_params['disable_ocean_mask'] = 'Distilled env model' in settings
+    eval_params['disable_ocean_mask'] = 'Disable ocean mask' in settings
     eval_params['threshold'] = threshold if 'Threshold' in settings else -1.0
         
     # load model
