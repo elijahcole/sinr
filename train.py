@@ -7,6 +7,8 @@ import models
 import datasets
 import utils
 
+import tqdm as tqdm
+
 class Trainer():
 
     def __init__(self, model, train_loader, params):
