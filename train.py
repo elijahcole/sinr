@@ -34,7 +34,9 @@ class Trainer():
         running_loss = 0.0
         samples_processed = 0
         steps_trained = 0
-        for _, batch in enumerate(self.train_loader):
+        for _, batch in tqdm(enumerate(self.train_loader), 
+                             desc = 'Training', 
+                             total = len(self.train_loader)):
             # reset gradients:
             self.optimizer.zero_grad()
             # compute loss:
