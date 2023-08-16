@@ -89,16 +89,16 @@ def load_inat_data(ip_file, taxa_of_interest=None):
     print('Number of unique classes {}'.format(np.unique(data['taxon_id'].values).shape[0]))
 
     locs = np.vstack((data['longitude'].values, data['latitude'].values)).T.astype(np.float32)
-    taxa = data['taxon_id'].values.astype(np.int)
+    taxa = data['taxon_id'].values.astype(np.int32)
 
     if 'user_id' in data.columns:
-        users = data['user_id'].values.astype(np.int)
+        users = data['user_id'].values.astype(np.int32)
         _, users = np.unique(users, return_inverse=True)
     elif 'observer_id' in data.columns:
-        users = data['observer_id'].values.astype(np.int)
+        users = data['observer_id'].values.astype(np.int32)
         _, users = np.unique(users, return_inverse=True)
     else:
-        users = np.ones(taxa.shape[0], dtype=np.int)*-1
+        users = np.ones(taxa.shape[0], dtype=np.int32)*-1
 
     # Note - assumes that dates are in format YYYY-MM-DD
     years  = np.array([int(d_str[:4])   for d_str in data['date'].values])
