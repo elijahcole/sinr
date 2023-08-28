@@ -13,7 +13,7 @@ def apply_overrides(params, overrides):
 def get_default_params_train(overrides={}):
 
     params = {}
-    
+
     '''
     misc
     '''
@@ -21,7 +21,7 @@ def get_default_params_train(overrides={}):
     params['save_base'] = './experiments/'
     params['experiment_name'] = 'demo'
     params['timestamp'] = False
-    
+
     '''
     data
     '''
@@ -32,19 +32,25 @@ def get_default_params_train(overrides={}):
     params['num_aux_species'] = 0 # for snt_birds case, how many other species to add in
 
     '''
+    data files
+    '''
+    params['obs_file'] = 'geo_prior_train.csv'
+    params['taxa_file'] = 'geo_prior_train_meta.json'
+
+    '''
     model
     '''
     params['model'] = 'ResidualFCNet'  # ResidualFCNet, LinNet
     params['num_filts'] = 256  # embedding dimension
     params['input_enc'] = 'sin_cos' # sin_cos, env, sin_cos_env
     params['depth'] = 4
-    
+
     '''
     loss
     '''
     params['loss'] = 'an_full' # an_full, an_ssdl, an_slds
     params['pos_weight'] = 2048
-    
+
     '''
     optimization
     '''
@@ -52,14 +58,14 @@ def get_default_params_train(overrides={}):
     params['lr'] = 0.0005
     params['lr_decay'] = 0.98
     params['num_epochs'] = 10
-    
+
     '''
     saving
     '''
     params['log_frequency'] = 512
-    
+
     params = apply_overrides(params, overrides)
-    
+
     return params
 
 def get_default_params_eval(overrides={}):

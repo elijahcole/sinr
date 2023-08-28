@@ -16,14 +16,14 @@ class LocationDataset(torch.utils.data.Dataset):
         else:
             raster = None
         self.enc = utils.CoordEncoder(input_enc, raster)
-        
+
         # define some properties:
         self.locs = locs
-        self.loc_feats = self.enc.encode(self.locs) 
+        self.loc_feats = self.enc.encode(self.locs)
         self.labels = labels
         self.classes = classes
         self.class_to_taxa = class_to_taxa
-        
+
         # useful numbers:
         self.num_classes = len(np.unique(labels))
         self.input_dim = self.loc_feats.shape[1]
@@ -67,7 +67,7 @@ def load_inat_data(ip_file, taxa_of_interest=None):
 
     if 'positional_accuracy' in data.columns:
         data.drop(['positional_accuracy'], axis=1, inplace=True)
-        
+
     if 'geoprivacy' in data.columns:
         data.drop(['geoprivacy'], axis=1, inplace=True)
 
@@ -79,7 +79,7 @@ def load_inat_data(ip_file, taxa_of_interest=None):
     size_diff = num_obs_orig - data.shape[0]
     if size_diff > 0:
         print(size_diff, 'observation(s) with a NaN entry out of' , num_obs_orig, 'removed')
-    
+
     # keep only taxa of interest:
     if taxa_of_interest is not None:
         num_obs_orig = data.shape[0]
@@ -89,16 +89,16 @@ def load_inat_data(ip_file, taxa_of_interest=None):
     print('Number of unique classes {}'.format(np.unique(data['taxon_id'].values).shape[0]))
 
     locs = np.vstack((data['longitude'].values, data['latitude'].values)).T.astype(np.float32)
-    taxa = data['taxon_id'].values.astype(np.int)
+    taxa = data['taxon_id'].values.astype(np.int64)
 
     if 'user_id' in data.columns:
-        users = data['user_id'].values.astype(np.int)
+        users = data['user_id'].values.astype(np.int64)
         _, users = np.unique(users, return_inverse=True)
     elif 'observer_id' in data.columns:
-        users = data['observer_id'].values.astype(np.int)
+        users = data['observer_id'].values.astype(np.int64)
         _, users = np.unique(users, return_inverse=True)
     else:
-        users = np.ones(taxa.shape[0], dtype=np.int)*-1
+        users = np.ones(taxa.shape[0], dtype=np.int64)*-1
 
     # Note - assumes that dates are in format YYYY-MM-DD
     years  = np.array([int(d_str[:4])   for d_str in data['date'].values])
@@ -111,16 +111,16 @@ def load_inat_data(ip_file, taxa_of_interest=None):
         obs_ids = data['id'].values
     elif 'observation_uuid' in data.columns:
         obs_ids = data['observation_uuid'].values
-    
+
     return locs, taxa, users, dates, years, obs_ids
 
-def choose_aux_species(current_species, num_aux_species, aux_species_seed):
+def choose_aux_species(current_species, num_aux_species, aux_species_seed, taxa_file):
     if num_aux_species == 0:
         return []
     with open('paths.json', 'r') as f:
         paths = json.load(f)
     data_dir = paths['train']
-    taxa_file = os.path.join(data_dir, 'geo_prior_train_meta.json')
+    taxa_file = os.path.join(data_dir, taxa_file)
     with open(taxa_file, 'r') as f:
         inat_large_metadata = json.load(f)
     aux_species_candidates = [x['taxon_id'] for x in inat_large_metadata]
@@ -131,7 +131,7 @@ def choose_aux_species(current_species, num_aux_species, aux_species_seed):
     aux_species = list(aux_species_candidates[idx_rand_aux_species[:num_aux_species]])
     return aux_species
 
-def get_taxa_of_interest(species_set='all', num_aux_species=0, aux_species_seed=123, taxa_file_snt=None):
+def get_taxa_of_interest(species_set='all', num_aux_species=0, aux_species_seed=123, taxa_file=None, taxa_file_snt=None):
     if species_set == 'all':
         return None
     if species_set == 'snt_birds':
@@ -141,8 +141,8 @@ def get_taxa_of_interest(species_set='all', num_aux_species=0, aux_species_seed=
         taxa_of_interest = list(taxa_subsets['snt_birds'])
     else:
         raise NotImplementedError
-    # optionally add some other species back in: 
-    aux_species = choose_aux_species(taxa_of_interest, num_aux_species, aux_species_seed)
+    # optionally add some other species back in:
+    aux_species = choose_aux_species(taxa_of_interest, num_aux_species, aux_species_seed, taxa_file)
     taxa_of_interest.extend(aux_species)
     return taxa_of_interest
 
@@ -167,11 +167,11 @@ def get_train_data(params):
     with open('paths.json', 'r') as f:
         paths = json.load(f)
     data_dir = paths['train']
-    obs_file  = os.path.join(data_dir, 'geo_prior_train.csv')
-    taxa_file = os.path.join(data_dir, 'geo_prior_train_meta.json')
+    obs_file  = os.path.join(data_dir, params['obs_file'])
+    taxa_file = os.path.join(data_dir, params['taxa_file'])
     taxa_file_snt = os.path.join(data_dir, 'taxa_subsets.json')
 
-    taxa_of_interest = get_taxa_of_interest(params['species_set'], params['num_aux_species'], params['aux_species_seed'], taxa_file_snt)
+    taxa_of_interest = get_taxa_of_interest(params['species_set'], params['num_aux_species'], params['aux_species_seed'], params['taxa_file'], taxa_file_snt)
 
     locs, labels, _, _, _, _ = load_inat_data(obs_file, taxa_of_interest)
     unique_taxa, class_ids = np.unique(labels, return_inverse=True)
@@ -182,7 +182,7 @@ def get_train_data(params):
     class_names_file = [cc['latin_name'] for cc in class_info_file]
     taxa_ids_file = [cc['taxon_id'] for cc in class_info_file]
     classes = dict(zip(taxa_ids_file, class_names_file))
-    
+
     idx_ss = get_idx_subsample_observations(labels, params['hard_cap_num_per_class'], params['hard_cap_seed'])
 
     locs = torch.from_numpy(np.array(locs)[idx_ss]) # convert to Tensor

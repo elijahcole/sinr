@@ -19,11 +19,11 @@ class Trainer():
         # define model:
         self.model = model
 
-        # define important objects: 
+        # define important objects:
         self.compute_loss = losses.get_loss_function(params)
         self.encode_location = self.train_loader.dataset.enc.encode
 
-        # define optimization objects: 
+        # define optimization objects:
         self.optimizer = torch.optim.Adam(self.model.parameters(), params['lr'])
         self.lr_scheduler = torch.optim.lr_scheduler.ExponentialLR(self.optimizer, gamma=params['lr_decay'])
 
@@ -52,7 +52,7 @@ class Trainer():
                 running_loss = 0.0
         # update learning rate according to schedule:
         self.lr_scheduler.step()
-    
+
     def save_model(self):
         save_path = os.path.join(self.params['save_path'], 'model.pt')
         op_state = {'state_dict': self.model.state_dict(), 'params' : self.params}
@@ -72,15 +72,15 @@ def launch_training_run(ovr):
     params['num_classes'] = train_dataset.num_classes
     params['class_to_taxa'] = train_dataset.class_to_taxa
     train_loader = torch.utils.data.DataLoader(
-        train_dataset, 
-        batch_size=params['batch_size'], 
-        shuffle=True, 
+        train_dataset,
+        batch_size=params['batch_size'],
+        shuffle=True,
         num_workers=4)
-    
+
     # model:
     model = models.get_model(params)
     model = model.to(params['device'])
-    
+
     # train:
     trainer = Trainer(model, train_loader, params)
     for epoch in range(0, params['num_epochs']):

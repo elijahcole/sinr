@@ -1,12 +1,12 @@
 import torch
 import numpy as np
-import math 
+import math
 import datetime
 
 class CoordEncoder:
-    
+
     def __init__(self, input_enc, raster=None):
-        self.input_enc = input_enc    
+        self.input_enc = input_enc
         self.raster = raster
 
     def encode(self, locs, normalize=True):
@@ -14,11 +14,11 @@ class CoordEncoder:
         if normalize:
             locs = normalize_coords(locs)
         if self.input_enc == 'sin_cos': # sinusoidal encoding
-            loc_feats = encode_loc(locs) 
+            loc_feats = encode_loc(locs)
         elif self.input_enc == 'env': # bioclim variables
-            loc_feats = bilinear_interpolate(locs, self.raster) 
+            loc_feats = bilinear_interpolate(locs, self.raster)
         elif self.input_enc == 'sin_cos_env': # sinusoidal encoding & bioclim variables
-            loc_feats = encode_loc(locs) 
+            loc_feats = encode_loc(locs)
             context_feats = bilinear_interpolate(locs, self.raster)
             loc_feats = torch.cat((loc_feats, context_feats), 1)
         else:
@@ -54,7 +54,7 @@ def bilinear_interpolate(loc_ip, data, remove_nans_raster=True):
                             # longitude goes from -90 to 90 left to right
 
     assert not torch.any(torch.isnan(loc))
-    
+
     if remove_nans_raster:
         data[torch.isnan(data)] = 0.0 # replace with mean value (0 is mean post-normalization)
 
@@ -120,24 +120,42 @@ def coord_grid(grid_size, split_ids=None, split_of_interest=None):
 
         # these will be N_subset x 2 in size
         return feats[ind_y, ind_x, :]
-    
+
 def create_spatial_split(raster, mask, train_amt=1.0, cell_size=25):
     # generates a checkerboard style train test split
-    # 0 is invalid, 1 is train, and 2 is test 
+    # 0 is invalid, 1 is train, and 2 is test
     # c_size is units of pixels
     split_ids = np.ones((raster.shape[0], raster.shape[1]))
     start = cell_size
-    for ii in np.arange(0, split_ids.shape[0], cell_size): 
+    for ii in np.arange(0, split_ids.shape[0], cell_size):
         if start == 0:
             start = cell_size
         else:
             start = 0
-        for jj in np.arange(start, split_ids.shape[1], cell_size*2): 
-            split_ids[ii:ii+cell_size, jj:jj+cell_size] = 2 
+        for jj in np.arange(start, split_ids.shape[1], cell_size*2):
+            split_ids[ii:ii+cell_size, jj:jj+cell_size] = 2
     split_ids = split_ids*mask
     if train_amt < 1.0:
         # take a subset of the data
-        tr_y, tr_x = np.where(split_ids==1) 
+        tr_y, tr_x = np.where(split_ids==1)
         inds = np.random.choice(len(tr_y), int(len(tr_y)*(1.0-train_amt)), replace=False)
         split_ids[tr_y[inds], tr_x[inds]] = 0
     return split_ids
+
+def average_precision_score_faster(y_true, y_scores):
+    # drop in replacement for sklearn's average_precision_score
+    # comparable up to floating point differences
+    num_positives = y_true.sum()
+    inds = np.argsort(y_scores)[::-1]
+    y_true_s = y_true[inds]
+
+    false_pos_c = np.cumsum(1.0 - y_true_s)
+    true_pos_c = np.cumsum(y_true_s)
+    recall = true_pos_c / num_positives
+    false_neg = np.maximum(true_pos_c + false_pos_c, np.finfo(np.float32).eps)
+    precision = true_pos_c / false_neg
+
+    recall_e = np.hstack((0, recall, 1))
+    recall_e = (recall_e[1:] - recall_e[:-1])[:-1]
+    map_score = (recall_e*precision).sum()
+    return map_score

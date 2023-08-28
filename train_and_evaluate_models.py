@@ -7,21 +7,21 @@ import eval
 
 train_params = {}
 
-train_params['experiment_name'] = 'demo' # This will be the name of the directory where results for this run are saved. 
+train_params['experiment_name'] = 'demo' # This will be the name of the directory where results for this run are saved.
 
 '''
 species_set
-- Which set of species to train on. 
+- Which set of species to train on.
 - Valid values: 'all', 'snt_birds'
 '''
-train_params['species_set'] = 'all' 
+train_params['species_set'] = 'all'
 
 '''
 hard_cap_num_per_class
 - Maximum number of examples per class to use for training.
 - Valid values: positive integers or -1 (indicating no cap).
 '''
-train_params['hard_cap_num_per_class'] = -1
+train_params['hard_cap_num_per_class'] = 1000
 
 '''
 num_aux_species
@@ -59,8 +59,8 @@ for eval_type in ['snt', 'iucn', 'geo_prior', 'geo_feature']:
     np.save(os.path.join(eval_params['exp_base'], train_params['experiment_name'], f'results_{eval_type}.npy'), cur_results)
 
 '''
-Note that train_params and eval_params do not contain all of the parameters of interest. Instead, 
-there are default parameter sets for training and evaluation (which can be found in setup.py). 
-In this script we create dictionaries of key-value pairs that are used to override the defaults 
-as needed. 
+Note that train_params and eval_params do not contain all of the parameters of interest. Instead,
+there are default parameter sets for training and evaluation (which can be found in setup.py).
+In this script we create dictionaries of key-value pairs that are used to override the defaults
+as needed.
 '''
