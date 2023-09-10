@@ -37,9 +37,9 @@ data
 
 ## Training & Evaluation Data
 
-1. Navigate to the directory for data:
+1. Navigate to the repository root directory:
 ```bash
-cd /path/to/sinr/data/
+cd /path/to/sinr/
 ```
 
 2. Download the data file:
