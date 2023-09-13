@@ -67,7 +67,7 @@ cd /path/to/sinr/data/env
 2. Download the data:
 ```bash
 curl -L https://biogeo.ucdavis.edu/data/worldclim/v2.1/base/wc2.1_5m_bio.zip --output wc2.1_5m_bio.zip
-curl -L https://biogeo.ucdavis.edu/data/worldclim/v2.1/base/wc2.1_5m_elev.zip --output wc2.1_5m_elev.
+curl -L https://biogeo.ucdavis.edu/data/worldclim/v2.1/base/wc2.1_5m_elev.zip --output wc2.1_5m_elev.zip
 ```
 
 3. Extract the data:
