@@ -66,7 +66,7 @@ assert not np.any(np.isinf(feats))
 
 # downsample features - choose middle time step
 print('Performing dimensionality reduction.')
-dsf = decomposition.FastICA(n_components=num_ds_dims, random_state=seed, whiten=True, max_iter=1000)
+dsf = decomposition.FastICA(n_components=num_ds_dims, random_state=seed, whiten='unit-variance', max_iter=1000)
 dsf.fit(feats)
 
 feats_ds = dsf.transform(feats)

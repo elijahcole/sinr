@@ -55,9 +55,9 @@ class ResidualFCNet(nn.Module):
 
     def eval_single_class(self, x, class_of_interest):
         if self.inc_bias:
-            return x * self.class_emb.weight[class_of_interest, :] + self.class_emb.bias[class_of_interest]
+            return x @ self.class_emb.weight[class_of_interest, :] + self.class_emb.bias[class_of_interest]
         else:
-            return x * self.class_emb.weight[class_of_interest, :]
+            return x @ self.class_emb.weight[class_of_interest, :]
 
 class LinNet(nn.Module):
     def __init__(self, num_inputs, num_classes):
@@ -80,6 +80,6 @@ class LinNet(nn.Module):
 
     def eval_single_class(self, x, class_of_interest):
         if self.inc_bias:
-            return x * self.class_emb.weight[class_of_interest, :] + self.class_emb.bias[class_of_interest]
+            return x @ self.class_emb.weight[class_of_interest, :] + self.class_emb.bias[class_of_interest]
         else:
-            return x * self.class_emb.weight[class_of_interest, :]
+            return x @ self.class_emb.weight[class_of_interest, :]
