@@ -135,7 +135,7 @@ def generate_prediction(taxa_id, selected_model, settings, threshold):
     # generate html for ouput display
     taxa_name_str = taxa_names[eval_params['taxa_id']]
     op_html = f'<h2><a href="https://www.inaturalist.org/taxa/{eval_params["taxa_id"]}" target="_blank">{taxa_name_str}</a></h2> (click for more info)'    
-    return op_html, fig, gr.Number.update(value=eval_params['taxa_id'])
+    return op_html, fig, eval_params['taxa_id']
 
 
 # load metadata
