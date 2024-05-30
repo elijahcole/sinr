@@ -21,7 +21,7 @@ hard_cap_num_per_class
 - Maximum number of examples per class to use for training.
 - Valid values: positive integers or -1 (indicating no cap).
 '''
-train_params['hard_cap_num_per_class'] = 1000
+train_params['hard_cap_num_per_class'] = 10
 
 '''
 num_aux_species
@@ -48,7 +48,7 @@ train_params['loss'] = 'an_full'
 train.launch_training_run(train_params)
 
 # evaluate:
-for eval_type in ['snt', 'iucn', 'geo_prior', 'geo_feature']:
+for eval_type in ['snt']: # 'iucn', 'geo_prior', 'geo_feature'
     eval_params = {}
     eval_params['exp_base'] = './experiments'
     eval_params['experiment_name'] = train_params['experiment_name']

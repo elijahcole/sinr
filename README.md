@@ -173,6 +173,24 @@ Click on or copy the local address output in the command line and open this in y
     * For example, to view the predicted species range for the Northern Cardinal, navigate to the iNaturalist page for this taxon (https://www.inaturalist.org/taxa/9083-Cardinalis-cardinalis) and set the taxon ID in the app to `9083` and click "Run Model".
 * To generate a thresholded predicted range select the "threshold" button and use the slider to choose the threshold value.
 
+### ↩️ Reproducing Results
+Navigate to the root of the project directory
+- Create a new directory `reproduce`
+- Navigate inside `./reproduce` and create new directory `repr`
+
+Your file structure should look like:
+```
+data
+├── README.md
+├── ... All other files
+├── reproduce
+│   ├── repr
+```
+
+Now run `python reproduce.py` to create recon results from pretrained models. While executing it should create .npy files inside `./reproduce/repr`. After execution, you can run `reproduce_tables.ipynb` to generate tables from the data and compare it to actual values presented in the paper.
+
+Contact Ozel with errors if any.
+
 ##  🙏 Acknowledgements
 This project was enabled by data from the Cornell Lab of Ornithology, The International Union for the Conservation of Nature, iNaturalist, NASA, USGS, JAXA, CIESIN, and UC Merced. We are especially indebted to the [iNaturalist](inaturalist.org) and [eBird](https://ebird.org) communities for their data collection efforts. We also thank Matt Stimas-Mackey and Sam Heinrich for their help with data curation. This project was funded by the [Climate Change AI Innovation Grants](https://www.climatechange.ai/blog/2022-04-13-innovation-grants) program, hosted by Climate Change AI with the support of the Quadrature Climate Foundation, Schmidt Futures, and the Canada Hub of Future Earth. This work was also supported by the Caltech Resnick Sustainability Institute and an NSF Graduate Research Fellowship (grant number DGE1745301).  
 

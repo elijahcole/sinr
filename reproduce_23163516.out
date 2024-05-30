@@ -1,0 +1,51 @@
+Removing miniconda version 22.11.1-1
+Loading miniconda version 22.11.1-1
+Model files successfully transferred.
+
+snt
+mean_average_precision: 0.8026052117347717
+num_eval_species_w_valid_ap: 535
+num_eval_species_total: 535
+evaluation completed in 1.0 min
+
+iucn
+mean_average_precision: 0.7675620317459106
+num_eval_species_w_valid_ap: 2418
+num_eval_species_total: 2418
+evaluation completed in 7.8 min
+
+snt
+mean_average_precision: 0.6536208987236023
+num_eval_species_w_valid_ap: 535
+num_eval_species_total: 535
+evaluation completed in 1.0 min
+
+iucn
+mean_average_precision: 0.49017107486724854
+num_eval_species_w_valid_ap: 2418
+num_eval_species_total: 2418
+evaluation completed in 7.6 min
+
+snt
+mean_average_precision: 0.7282495498657227
+num_eval_species_w_valid_ap: 535
+num_eval_species_total: 535
+evaluation completed in 1.0 min
+
+iucn
+mean_average_precision: 0.6200236082077026
+num_eval_species_w_valid_ap: 2418
+num_eval_species_total: 2418
+evaluation completed in 7.8 min
+
+snt
+mean_average_precision: 0.7715271711349487
+num_eval_species_w_valid_ap: 535
+num_eval_species_total: 535
+evaluation completed in 1.0 min
+
+iucn
+mean_average_precision: 0.6583800315856934
+num_eval_species_w_valid_ap: 2418
+num_eval_species_total: 2418
+evaluation completed in 7.7 min
