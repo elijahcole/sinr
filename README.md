@@ -1,4 +1,4 @@
-# Data Science for the Common Good 2024 - iNaturalist Project forked repo for paper
+# Data Science for the Common Good 2024 - iNaturalist Project forked repo for paper 
 # Spatial Implicit Neural Representations for Global-Scale Species Mapping - ICML 2023
 
 Code for training and evaluating global-scale species range estimation models. This code enables the recreation of the results from our ICML 2023 paper [Spatial Implicit Neural Representations for Global-Scale Species Mapping](https://arxiv.org/abs/2306.02564). 
