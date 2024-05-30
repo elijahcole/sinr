@@ -8,7 +8,7 @@ Estimating the geographical range of a species from sparse observations is a cha
 ![Model Prediction](images/sinr_traverse.gif)
 <sup>Above we visualize predictions from one of our SINR models trained on data from [iNaturalist](inaturalist.org). On the left we show the learned species embedding space, where each point represents a different species. On the right we see the predicted range of the species corresponding to the red dot on the left.<sup>
 
-## 🔍 Getting Started 
+## 🔍 Set up instructions 
 
 #### Installing Required Packages
 
@@ -25,8 +25,60 @@ Estimating the geographical range of a species from sparse observations is a cha
  pip3 install -r requirements.txt
 ```
 
-#### Data Download and Preparation
-# Instructions for Data Preparation
+Continue to Data Download and Preparation
+
+#### Instructions for downloading and setting up Training & Evaluation Data
+
+1. Navigate to the repository root directory:
+```bash
+cd /path/to/sinr/
+```
+
+2. Download the data file:
+```bash
+curl -L https://data.caltech.edu/records/b0wyb-tat89/files/data.zip --output data.zip
+```
+
+3. Extract the data and clean up:
+```bash
+unzip -q data.zip
+```
+
+4. Clean up:
+```bash
+rm data.zip
+```
+
+#### Instructions for downloading and setting up Environmental Features
+
+1. Navigate to the directory for the environmental features:
+```
+cd /path/to/sinr/data/env
+```
+
+2. Download the data:
+```bash
+curl -L https://geodata.ucdavis.edu/climate/worldclim/2_1/base/wc2.1_5m_bio.zip --output wc2.1_5m_bio.zip
+curl -L https://geodata.ucdavis.edu/climate/worldclim/2_1/base/wc2.1_5m_elev.zip --output wc2.1_5m_elev.zip
+```
+
+3. Extract the data:
+```bash
+unzip -q wc2.1_5m_bio.zip
+unzip -q wc2.1_5m_elev.zip
+```
+
+4. Run the formatting script:
+```bash
+python format_env_feats.py
+```
+
+5. Clean up:
+```bash
+rm *.zip
+rm *.tif
+```
+
 After following these instructions, the `data` directory should have the following structure:
 ```
 data
@@ -63,72 +115,23 @@ data
     └── geo_prior_train_meta.json
 ```
 
-## Training & Evaluation Data
+Now you should be all done! Continue to learn about how to use the geomodel to make predictions and do experiments.
 
-1. Navigate to the repository root directory:
-```bash
-cd /path/to/sinr/
-```
+## Using the model and training
+There are a variety of ways to use the models and make predictions, this section will walk you through on how to use this codebase effectively.
 
-2. Download the data file:
-```bash
-curl -L https://data.caltech.edu/records/b0wyb-tat89/files/data.zip --output data.zip
-```
-
-3. Extract the data and clean up:
-```bash
-unzip -q data.zip
-```
-
-4. Clean up:
-```bash
-rm data.zip
-```
-
-## Environmental Features
-
-1. Navigate to the directory for the environmental features:
-```
-cd /path/to/sinr/data/env
-```
-
-2. Download the data:
-```bash
-curl -L https://geodata.ucdavis.edu/climate/worldclim/2_1/base/wc2.1_5m_bio.zip --output wc2.1_5m_bio.zip
-curl -L https://geodata.ucdavis.edu/climate/worldclim/2_1/base/wc2.1_5m_elev.zip --output wc2.1_5m_elev.zip
-```
-
-3. Extract the data:
-```bash
-unzip -q wc2.1_5m_bio.zip
-unzip -q wc2.1_5m_elev.zip
-```
-
-4. Run the formatting script:
-```bash
-python format_env_feats.py
-```
-
-5. Clean up:
-```bash
-rm *.zip
-rm *.tif
-```
-
-## 🗺️ Generating Predictions
+### 🗺️ Generating Predictions
 To generate predictions for a model in the form of an image, run the following command: 
 ```bash
  python viz_map.py --taxa_id 130714
 ```
 Here, `--taxa_id` is the id number for a species of interest from [iNaturalist](https://www.inaturalist.org/taxa/130714). If you want to generate predictions for a random species, add the `--rand_taxa` instead. 
 
-Note, before you run this command you need to first download the data as described in `data/README.md`. In addition, if you want to evaluate some of the pretrained models from the paper, you need to download those first and place them at `sinr/pretrained_models`. See `web_app/README.md` for more details.
+Note, before you run this command you need to first download the data as described in `Set up instructions`. In addition, if you want to evaluate some of the pretrained models from the paper, you need to download those first and place them at `sinr/pretrained_models`. See `Web App for Visualizing Model Predictions` below for more details.
 
-There is also an interactive browser-based demo available in `web_app`.
+### 🚅 Training and Evaluating Models
 
-## 🚅 Training and Evaluating Models
-
-To train and evaluate a model, run the following command:
+To train and evaluate a model, run the following command, requires GPU:
 ```bash
  python train_and_evaluate_models.py
 ```
@@ -139,8 +142,7 @@ Common parameters of interest can be set within `train_and_evaluate_models.py`. 
 #### Outputs
 By default, trained models and evaluation results will be saved to a folder in the `experiments` directory. Evaluation results will also be printed to the command line. 
 
-#### Interactive Model Visualizer
-## Web App for Visualizing Model Predictions
+### 🌐 Web App for Visualizing Model Predictions
 
 Gradio app for exploring different model predictions.
 
