@@ -1,9 +1,9 @@
 {
-    "masks": "/work/pi_vcpartridge_umass_edu/inat/data/masks/",
-    "env": "/work/pi_vcpartridge_umass_edu/inat/data/env/", 
-    "train": "/work/pi_vcpartridge_umass_edu/inat/data/train/", 
-    "geo_prior": "/work/pi_vcpartridge_umass_edu/inat/data/eval/geo_prior/",
-    "snt": "/work/pi_vcpartridge_umass_edu/inat/data/eval/snt/", 
-    "iucn": "/work/pi_vcpartridge_umass_edu/inat/data/eval/iucn/", 
-    "geo_feature": "/work/pi_vcpartridge_umass_edu/inat/data/eval/geo_feature/"
+    "masks": "/../../data/masks/",
+    "env": "/../../inat/data/env/", 
+    "train": "/../../inat/data/train/", 
+    "geo_prior": "/../../inat/data/eval/geo_prior/",
+    "snt": "/../../inat/data/eval/snt/", 
+    "iucn": "/../../inat/data/eval/iucn/", 
+    "geo_feature": "/../../inat/data/eval/geo_feature/"
 } 
