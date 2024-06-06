@@ -3,7 +3,6 @@ import numpy as np
 import torch
 import shutil
 
-import train
 import eval
 
 train_params = {}
@@ -23,45 +22,6 @@ experiment_name
 train_params["experiment_name"] = (
     "repr"  # This will be the name of the directory where results for this run are saved.  # this is a subdirectory in save_base
 )
-
-
-"""
-species_set
-- Which set of species to train on.
-- Valid values: 'all', 'snt_birds'
-"""
-train_params["species_set"] = "all"  # unused parameter
-
-"""
-hard_cap_num_per_class
-- Maximum number of examples per class to use for training.
-- Valid values: positive integers or -1 (indicating no cap).
-"""
-train_params["hard_cap_num_per_class"] = 1000  # will be overriden, unused parameter
-
-"""
-num_aux_species
-- Number of random additional species to add.
-- Valid values: Nonnegative integers. Should be zero if params['species_set'] == 'all'.
-"""
-train_params["num_aux_species"] = 0  # unused parameter
-
-"""
-input_enc
-- Type of inputs to use for training.
-- Valid values: 'sin_cos', 'env', 'sin_cos_env'
-"""
-train_params["input_enc"] = "sin_cos"  # unused parameter
-
-"""
-loss
-- Which loss to use for training.
-- Valid values: 'an_full', 'an_slds', 'an_ssdl', 'an_full_me', 'an_slds_me', 'an_ssdl_me'
-"""
-train_params["loss"] = "an_full"  # unused parameter
-
-# train:
-# train.launch_training_run(train_params) # comment out, we will be overwriting script to use pre-train models linked
 
 # load pretrain: defines pretrain models and paths
 # follow changelog.md for instructions

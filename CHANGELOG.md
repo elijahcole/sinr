@@ -14,7 +14,4 @@
 ### Changes
 - Changed readme
 - changed a line in viz_ica.py that had incorrect path leading to error, this should be carried to another patch branch
-## 6/6/2024 v1.0.2
-### Added
-### Changes
 - deleted slurm scripts and unnecessary parts of the commit
