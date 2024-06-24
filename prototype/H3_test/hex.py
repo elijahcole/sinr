@@ -31,6 +31,8 @@ def generate_k_ring(data):
 
     h3_address = h3.geo_to_h3(lat, lon, resolution)
     ring = h3.k_ring_distances(h3_address, k)
+    print(f'Ring length: {len(ring)}, ring: {ring}')
+    
 
     hexagons = []
     for hex_set in ring:
@@ -38,7 +40,8 @@ def generate_k_ring(data):
             hexagons.append(
                 {
                     "boundary": h3.h3_to_geo_boundary(hex_address),
-                    "p": random.random(),
+                    # "p": random.random(),
+                    "p": 0.8,
                     "h3_id": hex_address,
                 }
             )
