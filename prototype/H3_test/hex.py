@@ -12,6 +12,22 @@ def bucket_data_to_h3(resolution, df_path="fake_data.csv"):
     df["h3_id"] = h3_ids
     return df
 
+def get_all_h3_indexes(resolution):
+    # Start with the base (resolution 0) hexagons
+    base_hexagons = h3.get_res0_indexes()
+    
+    # To store all hexagons of the given resolution
+    all_hexagons = set()
+    
+    # Iterate over each base hexagon
+    for hexagon in base_hexagons:
+        # Get all children hexagons at the desired resolution
+        children = h3.h3_to_children(hexagon, resolution)
+        # Add them to the set
+        all_hexagons.update(children)
+    
+    # Convert the set to a list before returning
+    return list(all_hexagons)
 
 def generate_k_ring(data):
     """
@@ -31,7 +47,6 @@ def generate_k_ring(data):
 
     h3_address = h3.geo_to_h3(lat, lon, resolution)
     ring = h3.k_ring_distances(h3_address, k)
-    print(f'Ring length: {len(ring)}, ring: {ring}')
     
 
     hexagons = []
@@ -41,7 +56,7 @@ def generate_k_ring(data):
                 {
                     "boundary": h3.h3_to_geo_boundary(hex_address),
                     # "p": random.random(),
-                    "p": 0.8,
+                    "p": 0.85,
                     "h3_id": hex_address,
                 }
             )
