@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Instructions</title>
+  <link rel="stylesheet" href="/static/style.css" />
+  <style>
+    .instructions-container {
+      padding: 20px;
+      background-color: #fff;
+      border: 1px solid #ddd;
+      box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    }
+  </style>
+</head>
+<body>
+  <div class="instructions-container">
+    <h3>How to Use iNatAtor:</h3>
+    <ol>
+      <li><strong>Select Taxonomy:</strong>
+        <ul>
+          <li>Start typing the taxonomy name in the input field.</li>
+          <li>Choose the correct taxonomy name from the dropdown list. Note: Only taxa from this list can be annotated.</li>
+        </ul>
+      </li>
+      <li><strong>Generate Prediction:</strong>
+        <ul>
+          <li>Click the "Generate Prediction" button to view the current range prediction of the model for the selected taxa on the map.</li>
+        </ul>
+      </li>
+      <li><strong>Map Views:</strong>
+        <ul>
+          <li>In the top right corner of the map, you can choose the map view:</li>
+          <ul>
+            <li>World Light Gray Base</li>
+            <li>World Imagery</li>
+            <li>World Topo Map</li>
+            <li>OpenStreetMap</li>
+          </ul>
+        </ul>
+      </li>
+      <li><strong>Prediction Representation:</strong>
+        <ul>
+          <li>From the same menu, you can select how the prediction is represented on the map:</li>
+          <ul>
+            <li>Heat Map</li>
+            <li>Polygons</li>
+            <li>Hexagons</li>
+          </ul>
+          <li>You can also hide the current and previous annotations from this menu.</li>
+        </ul>
+      </li>
+      <li><strong>Map Legend and Controls:</strong>
+        <ul>
+          <li>The map legend shows what the colors mean on the map.</li>
+          <li>Use map controls to zoom in and out of the map.</li>
+        </ul>
+      </li>
+      <li><strong>Annotating Predictions:</strong>
+        <ul>
+          <li>Choose one of the drawing tools from the left menu to annotate predictions:</li>
+          <ul>
+            <li>Polygon</li>
+            <li>Rectangle</li>
+          </ul>
+          <li>Draw polygons or rectangles where you think the model's prediction is incorrect.</li>
+        </ul>
+      </li>
+      <li><strong>Using Drawing Tools:</strong>
+        <ul>
+          <li><strong>Polygon Tool:</strong>
+            <ul>
+              <li>Click to place the next corner of your polygon.</li>
+              <li>Continue placing corners to outline the area.</li>
+              <li>Click on the starting point to finish the polygon.</li>
+            </ul>
+          </li>
+          <li><strong>Rectangle Tool:</strong>
+            <ul>
+              <li>Click and drag to draw a rectangle.</li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+      <li><strong>Editing Annotations:</strong>
+        <ul>
+          <li>To erase a polygon, choose the delete tool (trash icon) and click on the polygon.</li>
+          <li>Click the "Save Annotation" button to save your changes.</li>
+          <li>To restart the annotation process, click the "Clear Annotation" button.</li>
+        </ul>
+      </li>
+      <li><strong>Saving Annotations:</strong>
+        <ul>
+          <li>After finishing your annotations, click the "Save Annotation" button.</li>
+        </ul>
+      </li>
+    </ol>
+    <p><strong>Happy Annotating!</strong></p>
+  </div>
+</body>
+</html>
