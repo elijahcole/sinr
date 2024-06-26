@@ -21,7 +21,7 @@ seed = 2001
 with open('paths.json', 'r') as f:
     paths = json.load(f)
 num_ds_dims = 3
-model_path = 'pretrained_models/model_an_full_input_enc_sin_cos_hard_cap_num_per_class_1000.pt' 
+model_path = 'pre_trained_models/model_an_full_input_enc_sin_cos_hard_cap_num_per_class_1000.pt' 
 op_file_name = os.path.basename(model_path[:-3]) + '_ica.png'
 
 op_dir = 'visualizations/'

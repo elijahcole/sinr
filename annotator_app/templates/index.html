@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>iNat Annotator</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet-draw/dist/leaflet.draw.css" />
+    <link rel="stylesheet" href="/static/style.css" />
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" />
+  </head>
+  <body>
+    <div class="sidebar">
+      <label for="taxa_name">Taxa Name:</label>
+      <input type="text" id="taxa_name" value="Ranunculus alpestris" />
+      <label for="resolution">Hex Resolution:</label>
+      <input type="number" id="resolution" value="4" min="0" max="15" />
+      <label for="threshold">Threshold:</label>
+      <input type="number" step="0.01" id="threshold" value="0.1" min="0.1" max="1" />
+      <label for="model">Model:</label>
+      <select name="Model" id="model">
+        <option value="AN_FULL_max_10">AN_FULL max 10</option>
+        <option value="AN_FULL_max_100">AN_FULL max 100</option>
+        <option selected="selected" value="AN_FULL_max_1000">AN_FULL max 1000</option>
+        <option value="Distilled_env_model">Distilled env model</option>
+      </select>
+      <!-- hidden -->
+      <div class="checkbox-container" >
+        <input hidden type="checkbox" id="disable_ocean_mask" name="Disable Ocean Mask">
+        <label hidden for="disable_ocean_mask"> Disable Ocean Mask</label>
+      </div>
+      <!-- hidden -->
+
+      <div class="taxa-info">
+        <img src="/static/inat_logo_square.png" alt="iNat logo" />
+        <p>Description</p>
+      </div>
+    </div>
+    <div class="content">
+      <div class="header">
+        <h3>iNatAtor</h3>
+        <p>Annotate and Predict Species Distributions</p>
+      </div>
+      <div class="buttons">
+        <button id="generate_prediction">Generate Prediction</button>
+        <button id="save_annotation">Save! Annotation</button>
+        <!-- hidden -->
+        <button id="load_annotation" hidden>Load Annotation</button>
+        <!-- hidden -->
+        <button id="clear_annotation">Clear Annotation</button>
+      </div>
+      <div id="map"></div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <script src="https://unpkg.com/leaflet.heat@0.2.0/dist/leaflet-heat.js"></script>
+    <script src="https://unpkg.com/leaflet-draw/dist/leaflet.draw.js"></script>
+    <script src="https://unpkg.com/h3-js@3.7.2/dist/h3-js.umd.js"></script>
+    <script type="module" src="/static/script.js"></script>
+  </body>
+</html>
