@@ -5,7 +5,7 @@ const MAPS = {
     "https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}",
     {
       attribution: "Tiles &copy; Esri &mdash; Esri, DeLorme, NAVTEQ",
-      maxZoom: 3,
+      maxZoom:4,
     }
   ),
   "world-imagery": L.tileLayer(
@@ -24,7 +24,7 @@ const MAPS = {
   ),
 };
 
-const map = L.map("map").setView([42, -72], 3);
+const map = L.map("map").setView([42, -72], 4);
 
 var currentMap = MAPS["topo-map"];
 currentMap.addTo(map);
@@ -112,19 +112,32 @@ document.getElementById("generate").onclick = () => {
     });
 };
 
-async function fetchHexagons(lat, lon, resolution, k) {
-  return fetch("/generate_random_k_ring", {
+// async function fetchHexagons(lat, lon, resolution, k) {
+//   return fetch("/generate_random_k_ring", {
+//     method: "POST",
+//     headers: {
+//       "Content-Type": "application/json",
+//     },
+//     body: JSON.stringify({
+//       k: parseInt(k),
+//       coord: {
+//         lat: parseInt(lat),
+//         lon: parseInt(lon),
+//       },
+//       resolution: parseInt(resolution),
+//     }),
+//   });
+// };
+
+async function fetchHexagons(resolution) {
+  return fetch("/generate_all_hexagons", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      k: parseInt(k),
-      coord: {
-        lat: parseInt(lat),
-        lon: parseInt(lon),
-      },
       resolution: parseInt(resolution),
     }),
   });
 }
+

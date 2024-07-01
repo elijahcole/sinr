@@ -29,7 +29,41 @@ def get_all_h3_indexes(resolution):
     # Convert the set to a list before returning
     return list(all_hexagons)
 
-def generate_k_ring(data):
+# def generate_k_ring(data):
+#     """
+#     data
+#         - resolution
+#         - coord
+#             - lat
+#             - lon
+#         - k
+
+#     returns: hexagons: []
+#     """
+
+#     resolution = data["resolution"]
+#     lat, lon = data["coord"]["lat"], data["coord"]["lon"]
+#     k = data["k"]
+
+#     h3_address = h3.geo_to_h3(lat, lon, resolution)
+#     ring = h3.k_ring_distances(h3_address, k)
+    
+
+#     hexagons = []
+#     for hex_set in ring:
+#         for hex_address in hex_set:
+#             hexagons.append(
+#                 {
+#                     "boundary": h3.h3_to_geo_boundary(hex_address),
+#                     # "p": random.random(),
+#                     "p": 0.85,
+#                     "h3_id": hex_address,
+#                 }
+#             )
+#     return hexagons
+
+
+def generate_all_hex(data):
     """
     data
         - resolution
@@ -42,22 +76,18 @@ def generate_k_ring(data):
     """
 
     resolution = data["resolution"]
-    lat, lon = data["coord"]["lat"], data["coord"]["lon"]
-    k = data["k"]
-
-    h3_address = h3.geo_to_h3(lat, lon, resolution)
-    ring = h3.k_ring_distances(h3_address, k)
-    
+    ring=get_all_h3_indexes(resolution)
+    print(ring)
 
     hexagons = []
-    for hex_set in ring:
-        for hex_address in hex_set:
-            hexagons.append(
-                {
-                    "boundary": h3.h3_to_geo_boundary(hex_address),
-                    # "p": random.random(),
-                    "p": 0.85,
-                    "h3_id": hex_address,
-                }
-            )
+
+    for hex_address in ring:
+        hexagons.append(
+            {
+                "boundary": h3.h3_to_geo_boundary(hex_address),
+                # "p": random.random(),
+                "p": 0.85,
+                "h3_id": hex_address,
+            }
+        )
     return hexagons

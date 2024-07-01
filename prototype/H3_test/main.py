@@ -3,7 +3,7 @@ from fastapi.responses import HTMLResponse, Response, JSONResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 
-from hex import generate_k_ring
+from hex import generate_all_hex
 
 app = FastAPI()
 app.mount("/static", StaticFiles(directory="static"), name="static")
@@ -16,9 +16,14 @@ async def read_root(request: Request):
     return templates.TemplateResponse("index.html", {"request": request})
 
 
+# @app.post("/generate_random_k_ring")
+# async def generate_random_k_ring(request: Request):
+#     hexs = generate_k_ring(await request.json())
+#     return JSONResponse(content={"hexagons": hexs})
+
 @app.post("/generate_random_k_ring")
-async def generate_random_k_ring(request: Request):
-    hexs = generate_k_ring(await request.json())
+async def generate_all_hexagons(request: Request):
+    hexs = generate_all_hex(await request.json())
     return JSONResponse(content={"hexagons": hexs})
 
 
