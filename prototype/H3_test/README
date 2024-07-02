@@ -1,0 +1,22 @@
+## Instructions for running the code
+
+To run the H3 test code, follow the instructions below:
+
+1. Create a new environment and activate it:
+```bash
+ conda conda create -n H3_env 
+ conda activate H3_env 
+```
+2. Install the required packages
+```bash
+ conda install fastapi
+ conda config --add channels conda-forge
+ conda install h3-py
+ conda install pandas
+```
+3. Run the code
+```bash
+ python3 main.py
+```
+
+4. Finally, open http://0.0.0.0:8000 on a web browser (does not work on Safari) 

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>iNat Annotator</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <link rel="stylesheet" href="/static/style.css" />
+  </head>
+  <body>
+    <h3>Hexagon Map</h3>
+    <label for="lat">Lat:</label>
+    <input type="number" id="lat" value="42.4" />
+    <label for="lon">Lon:</label>
+    <input type="number" id="lon" value="-72.5" />
+    <label for="resolution">Resolution:</label>
+    <input type="number" id="resolution" value="2" min="0" max="15" />
+    <label for="k">K:</label>
+    <input type="number" id="k" value="10" min="0" />
+    <button id="generate">Generate Hexagons</button>
+    <label for="map-options">Map Options</label>
+    <select name="map-options" id="map-options">
+      <option value="gray-world-canvas">Gray World</option>
+      <option value="world-imagery">World Imagery</option>
+      <option value="topo-map" selected>Open Topology Map</option>
+      <option value="dark-map">Dark Map</option>
+    </select>
+
+    <div id="map" style="width: 100%; height: 600px"></div>
+
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <script type="module" src="/static/script.js"></script>
+  </body>
+</html>
